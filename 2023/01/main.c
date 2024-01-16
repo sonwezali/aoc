@@ -27,6 +27,8 @@ int main()
     fgets(line, MAX_SIZE, file);
     fgets(line, MAX_SIZE, file);
 
+    printf("%s\n", line);
+
     char firstNum = '\0';
     char lastNum = '\0';
 
@@ -44,6 +46,8 @@ int main()
             }
         }
     }
+
+    printf("firstNum = %c\nlastNum = %c", firstNum, lastNum);
 
     fclose(file);
     
