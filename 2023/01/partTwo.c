@@ -1,63 +1,40 @@
 #include <stdio.h>
-#define MAX_SIZE 1000
+#include <stddef.h>
+#include <string.h>
 
-int isNumeric(char c)
-{
-    return c >= '0' && c <= '9';
-}
+typedef struct {
+    const char *word;
+    int value;
+} NumberMapping;
 
-int main()
-{
-    FILE *file;
-    char line[MAX_SIZE];
-
-    file = fopen("input.txt", "r");
+int wordToNumber(const char *word) {
+    NumberMapping mappings[] = {
+        {"zero", 0},
+        {"one", 1},
+        {"two", 2},
+        {"three", 3},
+        {"four", 4},
+        {"five", 5},
+        {"six", 6},
+        {"seven", 7},
+        {"eight", 8},
+        {"nine", 9}
+    };
     
-    if (file == NULL)
-    {
-        printf("Error: Could not open file\n");
-        return 1;
-    }   
+    int result = 0;
 
-    int totalSum = 0;
-
-    while (fgets(line, MAX_SIZE, file) != NULL)
-    {
-        char firstNum = '\0';
-        char lastNum = '\0';
-
-        for (int i = 0; line[i] != '\0'; i++)
-        {
-            if (isNumeric(line[i])) 
-            {
-                if (firstNum == '\0') 
-                {
-                    firstNum = line[i]; 
-                }
-                else 
-                {
-                    lastNum = line[i];
-                }
-            }
+    for (size_t i = 0; i < sizeof(mappings)/sizeof(mappings[0]); i++) {
+        if (strcmp(word, mappings[i].word) == 0) {
+            result = mappings[i].value;
+            break;
         }
-
-        int lineNum;
-        if (lastNum == '\0') 
-        {
-            lineNum = (int) (firstNum - '0') * 10 + (int) (firstNum - '0');
-        }
-        else
-        {
-            lineNum = (int) (firstNum - '0') * 10 + (int) (lastNum - '0');
-        }
-
-        totalSum += lineNum;
     }
 
-    fclose(file);
-    
-    printf("Total sum: %d\n", totalSum);
-
-    return 0;
+    return result;
 }
 
+int main() {
+    const char *input = "nine";
+
+    printf("Input is: %d", wordToNumber(input));
+}
