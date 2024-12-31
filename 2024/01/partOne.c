@@ -45,8 +45,22 @@ int main(void) {
 		l2 = list2[i];
 		totalDistance += (l1 < l2) ? l2 - l1 : l1 - l2;
 	}
-
 	printf("totalDistance: %d\n", totalDistance);
+
+	// PART TWO
+	int similarityScore = 0;
+	int numOcc = 0;
+	for (int i = 0; i < ln; i++) {
+		int l1 = list1[i];
+		for (int j = 0; j < ln; j++) {
+			int l2 = list2[j];
+			if (l2 > l1) break;
+			if (l1 == l2) numOcc++;
+		}
+		similarityScore += l1 * numOcc;
+		numOcc = 0;
+	}
+	printf("similarityScore: %d\n", similarityScore);
 
 	return 0;
 }
