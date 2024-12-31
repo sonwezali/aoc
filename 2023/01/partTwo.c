@@ -7,6 +7,11 @@ typedef struct {
     int value;
 } NumberMapping;
 
+int isNumeric(char c)
+{
+    return c >= '0' && c <= '9';
+}
+
 int wordToNumber(const char *word) {
     NumberMapping mappings[] = {
         {"zero", 0},
